@@ -70,7 +70,7 @@ fun formatCurrency(amount: Double): String =
 
 @Preview
 @Composable
-fun CalculatorOutputsPreview(){
+fun CalculatorOutputsPreview() {
     CalculatorOutputs(tipAmount = 18.0, billTotal = 118.0)
 }
 

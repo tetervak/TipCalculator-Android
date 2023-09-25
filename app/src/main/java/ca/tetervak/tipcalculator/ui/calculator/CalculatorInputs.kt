@@ -135,7 +135,7 @@ fun ServiceCostInput(serviceCost: String, onChange: (String) -> Unit) {
 
 @Preview
 @Composable
-fun CalculatorInputsPreview(){
+fun CalculatorInputsPreview() {
     CalculatorInputs(
         roundUpTip = true,
         onChangeOfRoundUpTip = {},

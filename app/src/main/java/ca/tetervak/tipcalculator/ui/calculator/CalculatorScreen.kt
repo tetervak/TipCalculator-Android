@@ -24,16 +24,16 @@ import ca.tetervak.tipcalculator.domain.calculateTip
 @Preview
 fun CalculatorScreen() {
 
-    val roundUpTip: MutableState<Boolean> = remember {
-        mutableStateOf(true)
-    }
-
     val serviceCost: MutableState<String> = remember {
         mutableStateOf("")
     }
 
     val serviceQuality: MutableState<ServiceQuality> = remember {
         mutableStateOf(ServiceQuality.GOOD)
+    }
+
+    val roundUpTip: MutableState<Boolean> = remember {
+        mutableStateOf(true)
     }
 
     val billBeforeTip = serviceCost.value.toDoubleOrNull() ?: 0.0
@@ -63,7 +63,10 @@ fun CalculatorScreen() {
             serviceQuality = serviceQuality.value,
             onChangeOfServiceQuality = { serviceQuality.value = it }
         )
-        CalculatorOutputs(tipAmount = tipAmount, billTotal = billTotal)
+        CalculatorOutputs(
+            tipAmount = tipAmount,
+            billTotal = billTotal
+        )
     }
 }
 
