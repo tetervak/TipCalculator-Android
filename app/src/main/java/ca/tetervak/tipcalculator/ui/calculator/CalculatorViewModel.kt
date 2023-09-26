@@ -5,39 +5,67 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import ca.tetervak.tipcalculator.domain.ServiceQuality
 import ca.tetervak.tipcalculator.domain.calculateTip
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 class CalculatorViewModel: ViewModel() {
 
-    val serviceCost: MutableState<String> = mutableStateOf("")
-    val serviceQuality: MutableState<ServiceQuality> = mutableStateOf(ServiceQuality.GOOD)
-    val roundUpTip: MutableState<Boolean> = mutableStateOf(true)
-
-    var tipAmount: Double = 0.0
-    var billTotal: Double = 0.0
-
-    fun calculateOutputs(){
-        val billBeforeTip = serviceCost.value.toDoubleOrNull() ?: 0.0
-        tipAmount = calculateTip(
-            billBeforeTip = billBeforeTip,
-            serviceQuality = serviceQuality.value,
-            roundUpTip = roundUpTip.value
-        )
-        billTotal = billBeforeTip + tipAmount
-    }
+    private val _uiState: MutableStateFlow<CalculatorUiState> =
+        MutableStateFlow(CalculatorUiState())
+    val uiState: StateFlow<CalculatorUiState> = _uiState
 
     fun onChangeOfRoundUpTip(newRoundUpTip: Boolean) {
-        roundUpTip.value = newRoundUpTip
-        calculateOutputs()
+        _uiState.update { state ->
+            val billBeforeTip = billBeforeTip(state.serviceCost)
+            val newTipAmount = calculateTip(
+                billBeforeTip = billBeforeTip,
+                serviceQuality = state.serviceQuality,
+                roundUpTip = newRoundUpTip
+            )
+            state.copy(
+                roundUpTip = newRoundUpTip,
+                tipAmount = newTipAmount,
+                billTotal = billBeforeTip + newTipAmount
+            )
+        }
+
     }
 
+    private fun billBeforeTip(serviceCost: String): Double =
+        serviceCost.toDoubleOrNull() ?: 0.0
+
+
     fun onChangeOfServiceCost(newServiceCost: String) {
-        serviceCost.value = newServiceCost
-        calculateOutputs()
+        _uiState.update { state ->
+            val billBeforeTip = billBeforeTip(newServiceCost)
+            val newTipAmount = calculateTip(
+                billBeforeTip = billBeforeTip,
+                serviceQuality = state.serviceQuality,
+                roundUpTip = state.roundUpTip
+            )
+            state.copy(
+                serviceCost = newServiceCost,
+                tipAmount = newTipAmount,
+                billTotal = billBeforeTip + newTipAmount
+            )
+        }
     }
 
     fun onChangeOfServiceQuality(newServiceQuality: ServiceQuality) {
-        serviceQuality.value = newServiceQuality
-        calculateOutputs()
+        _uiState.update { state ->
+            val billBeforeTip = billBeforeTip(state.serviceCost)
+            val newTipAmount = calculateTip(
+                billBeforeTip = billBeforeTip,
+                serviceQuality = newServiceQuality,
+                roundUpTip = state.roundUpTip
+            )
+            state.copy(
+                serviceQuality = newServiceQuality,
+                tipAmount = newTipAmount,
+                billTotal = billBeforeTip + newTipAmount
+            )
+        }
     }
 
 }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,12 +20,13 @@ import ca.tetervak.tipcalculator.domain.ServiceQuality
 @Composable
 fun CalculatorScreen(viewModel: CalculatorViewModel) {
 
-    val serviceCost: String by viewModel.serviceCost
-    val serviceQuality: ServiceQuality by viewModel.serviceQuality
-    val roundUpTip: Boolean by viewModel.roundUpTip
+    val uiState: CalculatorUiState by
+        viewModel.uiState.collectAsState()
 
     Column(
-        modifier = Modifier.padding(32.dp).fillMaxWidth(),
+        modifier = Modifier
+            .padding(32.dp)
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -34,16 +36,16 @@ fun CalculatorScreen(viewModel: CalculatorViewModel) {
             color = colorResource(id = R.color.pink_500)
         )
         CalculatorInputs(
-            roundUpTip = roundUpTip,
+            roundUpTip = uiState.roundUpTip,
             onChangeOfRoundUpTip = viewModel::onChangeOfRoundUpTip,
-            serviceCost = serviceCost,
+            serviceCost = uiState.serviceCost,
             onChangeOfServiceCost = viewModel::onChangeOfServiceCost,
-            serviceQuality = serviceQuality,
+            serviceQuality = uiState.serviceQuality,
             onChangeOfServiceQuality = viewModel::onChangeOfServiceQuality
         )
         CalculatorOutputs(
-            tipAmount = viewModel.tipAmount,
-            billTotal = viewModel.billTotal
+            tipAmount = uiState.tipAmount,
+            billTotal = uiState.billTotal
         )
     }
 }
