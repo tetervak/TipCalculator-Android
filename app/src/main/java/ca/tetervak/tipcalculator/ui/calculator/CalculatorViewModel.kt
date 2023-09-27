@@ -15,7 +15,7 @@ class CalculatorViewModel: ViewModel() {
     var tipAmount: Double = 0.0
     var billTotal: Double = 0.0
 
-    fun calculateOutputs(){
+    private fun calculateOutputs(){
         val billBeforeTip = serviceCost.value.toDoubleOrNull() ?: 0.0
         tipAmount = calculateTip(
             billBeforeTip = billBeforeTip,
