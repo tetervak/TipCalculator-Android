@@ -13,7 +13,10 @@ class CalculatorViewModel: ViewModel() {
     val roundUpTip: MutableState<Boolean> = mutableStateOf(true)
 
     var tipAmount: Double = 0.0
+    private set
+
     var billTotal: Double = 0.0
+    private set
 
     private fun calculateOutputs(){
         val billBeforeTip = serviceCost.value.toDoubleOrNull() ?: 0.0
