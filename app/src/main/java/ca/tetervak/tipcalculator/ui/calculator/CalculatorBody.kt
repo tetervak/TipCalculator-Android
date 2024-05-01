@@ -33,7 +33,8 @@ fun CalculatorBody(modifier: Modifier = Modifier) {
         mutableStateOf(true)
     }
 
-    val billBeforeTip = serviceCost.value.toDoubleOrNull() ?: 0.0
+    val billBeforeTip = billBeforeTip(serviceCost.value)
+
     val tipAmount = calculateTip(
         billBeforeTip = billBeforeTip,
         serviceQuality = serviceQuality.value,
@@ -65,4 +66,7 @@ fun CalculatorBody(modifier: Modifier = Modifier) {
     }
 }
 
-
+private fun billBeforeTip(entered: String): Double {
+    val value = entered.toDoubleOrNull() ?: 0.0
+    return if(value < 0.0) 0.0 else value
+}
