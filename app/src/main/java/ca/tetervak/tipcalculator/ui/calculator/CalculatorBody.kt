@@ -8,8 +8,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,24 +23,24 @@ import ca.tetervak.tipcalculator.domain.calculateTip
 @Preview
 fun CalculatorBody(modifier: Modifier = Modifier) {
 
-    val serviceCost: MutableState<String> = remember {
+    var serviceCost: String by remember {
         mutableStateOf("")
     }
 
-    val serviceQuality: MutableState<ServiceQuality> = remember {
+    var serviceQuality: ServiceQuality by remember {
         mutableStateOf(ServiceQuality.GOOD)
     }
 
-    val roundUpTip: MutableState<Boolean> = remember {
+    var roundUpTip: Boolean by remember {
         mutableStateOf(true)
     }
 
-    val billBeforeTip = billBeforeTip(serviceCost.value)
+    val billBeforeTip = billBeforeTip(serviceCost)
 
     val tipAmount = calculateTip(
         billBeforeTip = billBeforeTip,
-        serviceQuality = serviceQuality.value,
-        roundUpTip = roundUpTip.value
+        serviceQuality = serviceQuality,
+        roundUpTip = roundUpTip
     )
 
     val billTotal = billBeforeTip + tipAmount
@@ -52,12 +54,12 @@ fun CalculatorBody(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CalculatorInputs(
-            roundUpTip = roundUpTip.value,
-            onChangeOfRoundUpTip = { roundUpTip.value = it },
-            serviceCost = serviceCost.value,
-            onChangeOfServiceCost = { serviceCost.value = it },
-            serviceQuality = serviceQuality.value,
-            onChangeOfServiceQuality = { serviceQuality.value = it }
+            roundUpTip = roundUpTip,
+            onChangeOfRoundUpTip = { roundUpTip = it },
+            serviceCost = serviceCost,
+            onChangeOfServiceCost = { serviceCost = it },
+            serviceQuality = serviceQuality,
+            onChangeOfServiceQuality = { serviceQuality = it }
         )
         CalculatorOutputs(
             tipAmount = tipAmount,
