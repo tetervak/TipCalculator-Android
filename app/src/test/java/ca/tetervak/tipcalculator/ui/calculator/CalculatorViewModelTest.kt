@@ -26,9 +26,9 @@ class CalculatorViewModelTest {
         viewModel.onChangeOfServiceCost("10")
         viewModel.onChangeOfServiceQuality(ServiceQuality.GOOD)
         viewModel.onChangeOfRoundUpTip(true)
-        assertEquals(2.0, viewModel.tipAmount, 0.001)
-        println("tipAmount = ${viewModel.tipAmount}")
-        assertEquals(12.0, viewModel.billTotal, 0.001)
-        println("billTotal = ${viewModel.billTotal}")
+        assertEquals(2.0, viewModel.uiState.value.tipAmount, 0.001)
+        println("tipAmount = ${viewModel.uiState.value.tipAmount}")
+        assertEquals(12.0, viewModel.uiState.value.billTotal, 0.001)
+        println("billTotal = ${viewModel.uiState.value.billTotal}")
     }
 }
