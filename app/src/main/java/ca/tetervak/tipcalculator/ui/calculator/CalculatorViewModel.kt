@@ -25,7 +25,7 @@ class CalculatorViewModel : ViewModel() {
         private set
 
     private fun calculateOutputs() {
-        val billBeforeTip = serviceCost.toDoubleOrNull() ?: 0.0
+        val billBeforeTip = billBeforeTip(serviceCost)
         tipAmount = calculateTip(
             billBeforeTip = billBeforeTip,
             serviceQuality = serviceQuality,
@@ -49,4 +49,8 @@ class CalculatorViewModel : ViewModel() {
         calculateOutputs()
     }
 
+    private fun billBeforeTip(entered: String): Double {
+        val value = entered.toDoubleOrNull() ?: 0.0
+        return if(value < 0.0) 0.0 else value
+    }
 }
