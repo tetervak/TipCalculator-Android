@@ -25,10 +25,6 @@ fun CalculatorBody(
     viewModel: CalculatorViewModel,
     modifier: Modifier = Modifier
 ) {
-    val serviceCost: String by viewModel.serviceCost
-    val serviceQuality: ServiceQuality by viewModel.serviceQuality
-    val roundUpTip: Boolean by viewModel.roundUpTip
-
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -38,11 +34,11 @@ fun CalculatorBody(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CalculatorInputs(
-            roundUpTip = roundUpTip,
+            roundUpTip = viewModel.roundUpTip,
             onChangeOfRoundUpTip = viewModel::onChangeOfRoundUpTip,
-            serviceCost = serviceCost,
+            serviceCost = viewModel.serviceCost,
             onChangeOfServiceCost = viewModel::onChangeOfServiceCost,
-            serviceQuality = serviceQuality,
+            serviceQuality = viewModel.serviceQuality,
             onChangeOfServiceQuality = viewModel::onChangeOfServiceQuality
         )
         CalculatorOutputs(
