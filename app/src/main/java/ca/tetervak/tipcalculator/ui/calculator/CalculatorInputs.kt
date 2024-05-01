@@ -1,5 +1,6 @@
 package ca.tetervak.tipcalculator.ui.calculator
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -78,32 +79,45 @@ fun ServiceQualityInput(serviceQuality: ServiceQuality, onChange: (ServiceQualit
     Column(modifier = Modifier.padding(start = 16.dp, top = 16.dp)) {
         Text(
             text = stringResource(R.string.service_quality_input_label),
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            modifier = Modifier.padding(bottom = 8.dp)
         )
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable { onChange(ServiceQuality.AMAZING) }
+        ) {
             RadioButton(
                 selected = serviceQuality == ServiceQuality.AMAZING,
-                onClick = { onChange(ServiceQuality.AMAZING) }
+                onClick = null,
+                modifier = Modifier.padding(8.dp)
             )
             Text(
                 text = stringResource(id = R.string.quality_amazing_label),
                 fontSize = 18.sp
             )
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable { onChange(ServiceQuality.GOOD) }
+        ) {
             RadioButton(
                 selected = serviceQuality == ServiceQuality.GOOD,
-                onClick = { onChange(ServiceQuality.GOOD) }
+                onClick = null,
+                modifier = Modifier.padding(8.dp)
             )
             Text(
                 text = stringResource(id = R.string.quality_good_label),
                 fontSize = 18.sp
             )
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable { onChange(ServiceQuality.OK) }
+        ) {
             RadioButton(
                 selected = serviceQuality == ServiceQuality.OK,
-                onClick = { onChange(ServiceQuality.OK) }
+                onClick = null,
+                modifier = Modifier.padding(8.dp)
             )
             Text(
                 text = stringResource(id = R.string.quality_okay_label),
