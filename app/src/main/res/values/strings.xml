@@ -11,4 +11,5 @@
     <string name="calculate_button_label">Calculate Tip</string>
     <string name="bill_total_label">Bill Total:</string>
     <string name="tip_amount_label">Tip Amount:</string>
+    <string name="menu">Menu</string>
 </resources>
