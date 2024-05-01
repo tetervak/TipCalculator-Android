@@ -8,6 +8,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.tetervak.tipcalculator.ui.calculator.CalculatorBody
 import ca.tetervak.tipcalculator.ui.calculator.CalculatorTopBar
 
@@ -19,6 +20,9 @@ fun AppRootScreen(){
         topBar = { CalculatorTopBar(scrollBehavior) },
         modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection)
     ) { innerPadding ->
-        CalculatorBody(modifier = Modifier.padding(innerPadding))
+        CalculatorBody(
+            viewModel = viewModel(),
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }
