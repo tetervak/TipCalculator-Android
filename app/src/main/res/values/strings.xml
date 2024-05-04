@@ -12,4 +12,7 @@
     <string name="bill_total_label">Bill Total:</string>
     <string name="tip_amount_label">Tip Amount:</string>
     <string name="menu">Menu</string>
+    <string name="about_calculator">About Calculator</string>
+    <string name="programming_example">This is a programming example from an Android application development course.</string>
+    <string name="ok">OK</string>
 </resources>
