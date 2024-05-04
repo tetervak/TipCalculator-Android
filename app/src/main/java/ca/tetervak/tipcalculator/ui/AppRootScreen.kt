@@ -9,9 +9,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -24,7 +25,7 @@ import ca.tetervak.tipcalculator.ui.calculator.CalculatorTopBar
 @Composable
 fun AppRootScreen() {
 
-    var showAboutDialog: MutableState<Boolean> = rememberSaveable {
+    var showAboutDialog: Boolean by remember {
         mutableStateOf(false)
     }
 
@@ -32,7 +33,7 @@ fun AppRootScreen() {
     Scaffold(
         topBar = {
             CalculatorTopBar(
-                onHelpButtonClick = { showAboutDialog.value = true },
+                onHelpButtonClick = { showAboutDialog = true },
                 scrollBehavior = scrollBehavior
             )
         },
@@ -43,8 +44,8 @@ fun AppRootScreen() {
         CalculatorBody(modifier = Modifier.padding(innerPadding))
     }
 
-    if (showAboutDialog.value) {
-        CalculatorAbout(onDismissRequest = { showAboutDialog.value = false })
+    if (showAboutDialog) {
+        CalculatorAbout(onDismissRequest = { showAboutDialog = false })
     }
 }
 
