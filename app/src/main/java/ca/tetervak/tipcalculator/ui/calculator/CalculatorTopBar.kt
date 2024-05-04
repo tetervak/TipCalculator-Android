@@ -1,7 +1,5 @@
 package ca.tetervak.tipcalculator.ui.calculator
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -12,13 +10,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import ca.tetervak.tipcalculator.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalculatorTopBar(scrollBehavior: TopAppBarScrollBehavior) = CenterAlignedTopAppBar(
+fun CalculatorTopBar(
+    onHelpButtonClick: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior
+) = CenterAlignedTopAppBar(
     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
         titleContentColor = MaterialTheme.colorScheme.primary,
@@ -31,13 +33,13 @@ fun CalculatorTopBar(scrollBehavior: TopAppBarScrollBehavior) = CenterAlignedTop
     },
     actions = {
         IconButton(
-            onClick = { },
+            onClick = onHelpButtonClick,
             colors = IconButtonDefaults.iconButtonColors(
                 contentColor = MaterialTheme.colorScheme.primary
             )
         ) {
             Icon(
-                imageVector = Icons.Filled.MoreVert,
+                painter = painterResource(id = R.drawable.baseline_help_outline_24),
                 contentDescription = stringResource(R.string.menu)
             )
         }
