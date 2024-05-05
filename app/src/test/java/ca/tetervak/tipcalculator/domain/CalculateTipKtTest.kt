@@ -44,12 +44,11 @@ class CalculateTipKtTest {
     @Test
     fun calculateTip_Negative() {
         println("calculate tip from negative bill value")
-        val calc: () -> Unit = {
+        assertThrows(IllegalArgumentException::class.java){
             calculateTip(
                 billBeforeTip = -10.0,
                 serviceQuality = ServiceQuality.GOOD
             )
         }
-        assertThrows(IllegalArgumentException::class.java, calc)
     }
 }
