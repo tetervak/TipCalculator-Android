@@ -4,20 +4,34 @@ fun calculateTip(
     billBeforeTip: Double,
     serviceQuality: ServiceQuality = ServiceQuality.OK,
     roundUpTip: Boolean = true
-): Double {
+): Double =
+    calculateTip(
+        billBeforeTip = billBeforeTip,
+        tipPercent = tipForServiceQuality(serviceQuality).toDouble(),
+        roundUp = roundUpTip
+    )
+
+fun calculateTip(
+    billBeforeTip: Double,
+    tipPercent: Double = 15.0,
+    roundUp: Boolean = true
+): Double{
     if(billBeforeTip < 0.0){
-        throw IllegalArgumentException("Negative bill value $billBeforeTip")
+        throw  IllegalArgumentException("Negative bill value $billBeforeTip")
     }
-    var tipAmount = billBeforeTip * tipPercentage(serviceQuality)
-    if (roundUpTip) {
-        tipAmount = kotlin.math.ceil(tipAmount)
+    if(tipPercent < 0.0){
+        throw  IllegalArgumentException("Negative tip percent $tipPercent")
     }
-    return tipAmount
+    var tip = billBeforeTip * tipPercent / 100
+    if(roundUp){
+        tip = kotlin.math.ceil(tip)
+    }
+    return tip
 }
 
-private fun tipPercentage(serviceQuality: ServiceQuality): Double =
+private fun tipForServiceQuality(serviceQuality: ServiceQuality): Int =
     when (serviceQuality) {
-        ServiceQuality.OK -> 0.15
-        ServiceQuality.GOOD -> 0.18
-        ServiceQuality.AMAZING -> 0.20
+        ServiceQuality.OK -> 15
+        ServiceQuality.GOOD -> 18
+        ServiceQuality.AMAZING -> 20
     }
