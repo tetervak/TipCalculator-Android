@@ -32,7 +32,7 @@ fun CalculatorBody(
         serviceQuality = serviceQuality,
         roundUpTip = roundUpTip
     )
-    val billTotal = billBeforeTip + tipAmount;
+    val billTotal = billBeforeTip + tipAmount
 
     Column(
         modifier = modifier

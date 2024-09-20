@@ -8,7 +8,6 @@
     <string name="service_cost_label">Service Cost</string>
     <string name="round_up_tip_input_label">Round Up Tip</string>
     <string name="service_quality_input_label">Service Quality</string>
-    <string name="calculate_button_label">Calculate Tip</string>
     <string name="bill_total_label">Bill Total:</string>
     <string name="tip_amount_label">Tip Amount:</string>
     <string name="menu">Menu</string>
