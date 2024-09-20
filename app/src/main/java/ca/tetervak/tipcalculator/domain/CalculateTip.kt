@@ -29,7 +29,7 @@ fun calculateTip(
     return tip
 }
 
-private fun tipForServiceQuality(serviceQuality: ServiceQuality): Int =
+fun tipForServiceQuality(serviceQuality: ServiceQuality): Int =
     when (serviceQuality) {
         ServiceQuality.OK -> 15
         ServiceQuality.GOOD -> 18

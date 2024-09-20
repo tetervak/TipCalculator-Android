@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.tetervak.tipcalculator.R
 import ca.tetervak.tipcalculator.ui.calculator.CalculatorBody
 import ca.tetervak.tipcalculator.ui.calculator.CalculatorTopBar
@@ -43,7 +42,6 @@ fun AppRootScreen() {
             .nestedScroll(scrollBehavior.nestedScrollConnection)
     ) { innerPadding ->
         CalculatorBody(
-            viewModel = viewModel(),
             modifier = Modifier.padding(innerPadding)
         )
     }
